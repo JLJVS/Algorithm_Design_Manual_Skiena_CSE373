@@ -1,27 +1,24 @@
 #include <stdio.h>
 
-int calc_cycle_length(int n){
+int calc_cycle_length(long long n){
     int count = 1;
     while (n != 1){
         count++;
-        if (n%2==0){
-            n/=2;
-        }
-        else{
+        if (n % 2 == 0)
+            n /= 2;
+        else
             n = 3*n + 1;
-        }
     }
-    return count;    
+    return count;
 }
 
 int find_longest_cycle(int start, int end){
-    int largest_cycle = 0, cycle = 0, n;
-
-    for (n = start; n < end+1; n++){
-        cycle = calc_cycle_length(n);
-        if (cycle > largest_cycle){
+    int largest_cycle = 0;
+    int n = 0;
+    for (n = start; n <= end; n++){
+        int cycle = calc_cycle_length(n);
+        if (cycle > largest_cycle)
             largest_cycle = cycle;
-        }
     }
     return largest_cycle;
 }
@@ -40,10 +37,19 @@ int main(void)
     }
     */
 
-    int start, end, largest;
-    while (scanf("%d %d", &start, &end) == 2)
-    {
-        largest = find_longest_cycle(start, end);
+    int a, b, start, end;
+
+    while (scanf("%d %d", &a, &b) == 2){
+        start = a;
+        end = b;
+
+        if (a > b){
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+
+        int largest = find_longest_cycle(a, b);
         printf("%d %d %d\n", start, end, largest);
     }
 
